@@ -475,11 +475,6 @@ let problems = [
         "latex": String.raw`\begin{pmatrix} x \\ y \end{pmatrix}`
     },
     {
-        "title": "Elenco Puntato (Simulato)",
-        "description": "Simulato con 'array' e 'bullet'.",
-        "latex": String.raw`\begin{array}{l} \bullet \text{ Primo} \\ \bullet \text{ Secondo} \end{array}`
-    },
-    {
         "title": "Parentesi Grandi",
         "description": "Usare \left( e \right).",
         "latex": String.raw`\left( \frac{a}{b} \right)`

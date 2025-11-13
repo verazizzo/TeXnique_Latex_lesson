@@ -288,60 +288,60 @@ function escapeHtml(text) {
 }
 
 // Leaderboard functions
-async function submitScore(name, score) {
-    try {
-        await db.collection('leaderboard').add({
-            name: name.trim(),
-            score: score,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        loadLeaderboard('today'); // Refresh leaderboard after submission
-    } catch (error) {
-        console.error("Error submitting score:", error);
-    }
+function submitScore(name, score) {
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    leaderboard.push({
+        name: name.trim(),
+        score: score,
+        timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    loadLeaderboard('today'); // Refresh leaderboard after submission
 }
 
-async function loadLeaderboard(timeRange) {
+function loadLeaderboard(timeRange) {
     const leaderboardList = $("#leaderboard-list");
     leaderboardList.empty();
-    
-    try {
-        let query = db.collection('leaderboard');
-        
-        // Add time constraints based on selected range
-        const now = new Date();
-        if (timeRange === 'today') {
-            const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            query = query.where('timestamp', '>=', startOfDay);
-        } else if (timeRange === 'month') {
-            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-            query = query.where('timestamp', '>=', startOfMonth);
-        }
-        
-        const snapshot = await query.orderBy('score', 'desc').limit(10).get();
-        
-        if (snapshot.empty) {
-            leaderboardList.append('<p>No scores yet!</p>');
-            return;
-        }
-        
-        let rank = 1;
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            const scoreEntry = `
-                <div class="leaderboard-entry" style="margin: 5px 0;">
-                    <span class="rank">#${rank}</span>
-                    <span class="name">${escapeHtml(data.name)}</span>
-                    <span class="score">${data.score} points</span>
-                </div>
-            `;
-            leaderboardList.append(scoreEntry);
-            rank++;
-        });
-    } catch (error) {
-        console.error("Error loading leaderboard:", error);
-        leaderboardList.append('<p>Error loading leaderboard</p>');
+
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+
+    if (leaderboard.length === 0) {
+        leaderboardList.append('<p>No scores yet!</p>');
+        return;
     }
+
+    const now = new Date();
+    let filteredScores = leaderboard;
+
+    if (timeRange === 'today') {
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+        filteredScores = leaderboard.filter(s => s.timestamp >= startOfDay);
+    } else if (timeRange === 'month') {
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+        filteredScores = leaderboard.filter(s => s.timestamp >= startOfMonth);
+    }
+
+    filteredScores.sort((a, b) => b.score - a.score);
+
+    const topScores = filteredScores.slice(0, 10);
+
+    if (topScores.length === 0) {
+        leaderboardList.append('<p>No scores yet for this period!</p>');
+        return;
+    }
+
+    let rank = 1;
+    topScores.forEach((data) => {
+        const scoreEntry = `
+            <div class="leaderboard-entry" style="margin: 5px 0;">
+                <span class="rank">#${rank}</span>
+                <span class="name">${escapeHtml(data.name)}</span>
+                <span class="score">${data.score} points</span>
+            </div>
+        `;
+        leaderboardList.append(scoreEntry);
+        rank++;
+    });
 }
 
 // Start by showing the intro.
