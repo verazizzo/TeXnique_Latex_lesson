@@ -717,7 +717,7 @@ let problems = [
     {
         "title": "Matematica e testo",
         "description": "Scrivere espressioni, testo o entrambi.",
-        "latex": String.raw`\text{Michelino è l'uomo} \alpha \text{del \textbf{Politecnico}\textit{!}}`
+        "latex": String.raw`\text{Michelino è l'uomo } \alpha \text{ del \textbf{Politecnico}\textit{!}}`
     },
     {
         "title": "Matematica e testo",
@@ -737,7 +737,7 @@ let problems = [
     {
         "title": "Matematica e testo",
         "description": "Scrivere espressioni, testo o entrambi.",
-        "latex": String.raw`\text{\underline{I matematici amano le lettere}} \alpha, \beta, \phi, \text{\textbf{ecc.}}`
+        "latex": String.raw`\text{\underline{I matematici amano le lettere} } \alpha, \beta, \phi, \text{ \textbf{ecc.}}`
     },
     {
         "title": "Matematica e testo",
@@ -747,22 +747,22 @@ let problems = [
     {
         "title": "Matematica e testo",
         "description": "Scrivere espressioni, testo o entrambi.",
-        "latex": String.raw`15 + 18 \text{\texttt{quanto fa?}}`
+        "latex": String.raw`15 + 18 \text{ \texttt{quanto fa?}}`
     },
     {
         "title": "Matematica e testo",
         "description": "Scrivere espressioni, testo o entrambi.",
-        "latex": String.raw`\text{Risolvi la sommatoria:} \sum_{i = 1}^{5} (x_i^2 + 3^1)`
+        "latex": String.raw`\text{Risolvi la sommatoria: } \sum_{i = 1}^{5} (x_i^2 + 3^1)`
     },
     {
         "title": "Matematica e testo",
         "description": "Scrivere espressioni, testo o entrambi.",
-        "latex": String.raw`\text{Questo è alpha maiuscolo:} \Alpha \\ \text{Questo è un prodotto:} \Alpha_1 * \alpha_2 * 5`
+        "latex": String.raw`\text{Questo è alpha maiuscolo: } \Alpha \\ \text{Questo è un prodotto: } \Alpha_1 * \alpha_2 * 5`
     },
     {
         "title": "Matematica e testo",
         "description": "Scrivere espressioni, testo o entrambi.",
-        "latex": String.raw`\text{Conosci gli altri numeri di:} \pi = 3.14 \text{\textbf{???}}`
+        "latex": String.raw`\text{Conosci gli altri numeri di: } \pi = 3.14 \text{\textbf{???}}`
     },
     // 10 domande di sintassi LaTeX
     {
