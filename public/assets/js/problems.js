@@ -253,7 +253,7 @@ let problems = [
         "title": "Matematica Semplice",
         "description": "Scrivere l'espressione.",
         "latex": String.raw`x = \frac{-b \pm \sqrt{\Delta}}{2a}`
-    }
+    },
     // 10 domande matematica e testo
     {
         "title": "Matematica e testo",
